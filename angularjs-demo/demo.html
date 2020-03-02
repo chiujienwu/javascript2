@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>AngularJS Todo App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="demo.js"></script>
+    <style>
+        li {
+            list-style: none;
+        }
+
+        .complete {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+<body ng-app="todoApp">
+<div class="wrapper" ng-controller="todoCtrl">
+    <h1>My Todos:  {{incompleteTodos().length}}</h1>
+    <input type="text" ng-model="yourName">
+    {{yourName}}
+    <ul>
+        <li ng-repeat="todo in todos | filter: {done: false}">
+            <label>
+                <input type="checkbox" ng-model="todo.done">
+                <span class="{{todo.done ? 'complete' : ''}}">{{todo.text}}</span>{{todo.done}}
+            </label>
+        </li>
+    </ul>
+
+    <h1>Completed: {{completedTodos().length}}</h1>
+    <ul>
+        <li ng-repeat="todo in todos | filter: {done: true}">
+            <label>
+                <input type="checkbox" ng-model="todo.done">
+                <span class="{{todo.done ? 'complete' : ''}}">{{todo.text}}</span>{{todo.done}}
+            </label>
+        </li>
+
+    </ul>
+
+    <button ng-click="clearCompleted()">Clear Completed</button>
+
+    <hr>
+
+    <form>
+        <label>New Todo: <input type="text" ng-model="newTodo"></label>
+        <button ng-click="addTodo()">Add</button>
+    </form>
+</div>
+</body>
+</html>
